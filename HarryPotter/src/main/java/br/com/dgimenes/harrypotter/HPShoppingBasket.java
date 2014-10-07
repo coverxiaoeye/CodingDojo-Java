@@ -27,7 +27,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 public class HPShoppingBasket {
 
@@ -53,6 +52,9 @@ public class HPShoppingBasket {
 			Iterator<Entry<Book, Integer>> iterator = booksToProcess.entrySet().iterator();
 			while (iterator.hasNext()) {
 				Entry<Book, Integer> bookToProcess = iterator.next();
+				if (diffBooksCount == 4 && booksToProcess.size() == 4) {
+					break;
+				}
 				if (bookToProcess.getValue() == 1) {
 					iterator.remove();
 				} else {
@@ -60,7 +62,6 @@ public class HPShoppingBasket {
 				}
 				diffBooksCount++;
 			}
-
 			if (diffBooksCount == 1) {
 				price += 8D;
 			} else if (diffBooksCount == 2) {
