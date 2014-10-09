@@ -1,7 +1,7 @@
 CodingDojo
 ==========
 
-Solution for some common Coding Dojo problems. The problems are public domain. The solutions are licensed with The MIT License.
+Solutions for some common Coding Dojo problems. The problems are public domain. The solutions are licensed with The MIT License.
 
 ##HarryPotter
 
