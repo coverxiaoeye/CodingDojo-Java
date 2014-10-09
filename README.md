@@ -3,7 +3,7 @@ CodingDojo
 
 Coding Dojo problems solution.
 
-#HarryPotter
+##HarryPotter
 
 To try and encourage more sales of the 5 different Harry
 Potter books they sell, a bookshop has decided to offer 
@@ -62,7 +62,7 @@ For a total of 51.20
 And 51.20 is the price with the biggest discount.
 
 
-#TennisScoring
+##TennisScoring
 
 You task is to implement a tennis scoring program.
 Summary of tennis scoring:
