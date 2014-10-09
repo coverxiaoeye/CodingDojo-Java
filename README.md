@@ -79,6 +79,15 @@ Develop an algorithm that takes "one step" in the game of life. The behaviour ex
 
 You also have to think of things such as how to represent the board in a test-friendly way, and what "value" cells outside the board has. Or maybe the board does not have borders?
 
+##FizzBuzz
+
+For numbers 1 through 100,
+
+if the number is divisible by 3 print Fizz;
+if the number is divisible by 5 print Buzz;
+if the number is divisible by 3 and 5 (15) print FizzBuzz;
+else, print the number.
+
 #License
 
 The MIT License (MIT)
