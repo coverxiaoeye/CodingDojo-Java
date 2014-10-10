@@ -96,7 +96,7 @@ else, print the number.
 
 Solution: https://github.com/danielgimenes/CodingDojo/tree/master/FizzBuzz
 
-##SQL string generator
+##SQL String Generator
 
 Given table metadata (name, columns/types, etc.), generate a well-formed SQL string. For example:
 
