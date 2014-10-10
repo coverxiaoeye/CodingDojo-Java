@@ -1,0 +1,8 @@
+##SQL string generator
+
+Given table metadata (name, columns/types, etc.), generate a well-formed SQL string. For example:
+
+String[] columns = { "a", "b", "c" };
+assertEquals("select a,b,c from x", sql.select(tableName, columns));
+
+Do this for the usual SQL queries: SELECT, INSERT, UPDATE, DELETE. Remember to only do one thing at a time, and try not to think of the solution "ahead of time". Let the methods and objects just grow by themselves, as you write more and more tests.
