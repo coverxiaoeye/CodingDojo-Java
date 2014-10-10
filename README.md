@@ -53,6 +53,8 @@ For a total of 51.20
 
 And 51.20 is the price with the biggest discount.
 
+Solution: https://github.com/danielgimenes/CodingDojo/tree/master/HarryPotter
+
 ##TennisScoring
 
 You task is to implement a tennis scoring program. Summary of tennis scoring:
@@ -64,6 +66,8 @@ You task is to implement a tennis scoring program. Summary of tennis scoring:
 3. If at least three points have been scored by each player, and the scores are equal, the score is "deuce".
    
 4. If at least three points have been scored by each side and a player has one more point than his opponent, the score of the game is "advantage" for the player in the lead.
+
+Solution: https://github.com/danielgimenes/CodingDojo/tree/master/TennisScoring
 
 ##GameOfLife
 
@@ -79,6 +83,8 @@ Develop an algorithm that takes "one step" in the game of life. The behaviour ex
 
 You also have to think of things such as how to represent the board in a test-friendly way, and what "value" cells outside the board has. Or maybe the board does not have borders?
 
+Solution: https://github.com/danielgimenes/CodingDojo/tree/master/GameOfLife
+
 ##FizzBuzz
 
 For numbers 1 through 100,
@@ -88,6 +94,8 @@ if the number is divisible by 5 print Buzz;
 if the number is divisible by 3 and 5 (15) print FizzBuzz;
 else, print the number.
 
+Solution: https://github.com/danielgimenes/CodingDojo/tree/master/FizzBuzz
+
 ##SQL string generator
 
 Given table metadata (name, columns/types, etc.), generate a well-formed SQL string. For example:
@@ -96,6 +104,8 @@ String[] columns = { "a", "b", "c" };
 assertEquals("select a,b,c from x", sql.select(tableName, columns));
 
 Do this for the usual SQL queries: SELECT, INSERT, UPDATE, DELETE. Remember to only do one thing at a time, and try not to think of the solution "ahead of time". Let the methods and objects just grow by themselves, as you write more and more tests.
+
+Solution: https://github.com/danielgimenes/CodingDojo/tree/master/SQLStringGenerator
 
 #License
 
