@@ -117,6 +117,14 @@ Transform it to its postfix equivalent:
 
 3 2 5 + *
 
+Examples:
+
+Infix: 3 * (2 + 5)
+Postfix: 3 2 5 + *
+
+Infix: ((2 + 3) / 4) + (3 + 1) * 4
+Postfix: 2 3 + 4 / 3 1 + 4 * +
+
 #License
 
 The MIT License (MIT)

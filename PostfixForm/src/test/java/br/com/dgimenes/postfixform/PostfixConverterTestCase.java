@@ -71,6 +71,15 @@ public class PostfixConverterTestCase {
 		assertEquals(expectedPostfixFormExp, postfixForm);
 	}
 	
+	@Test
+	public void testExpression_NoParenthesis_TwoOperators_4_OperatorPriority() {
+		String expression = "1 + 2 + 3 * 4";
+		String expectedPostfixFormExp = "1 2 + 3 4 * +";
+		PostfixConverter converter = new PostfixConverter(expression);
+		String postfixForm = converter.getPostfixForm();
+		assertEquals(expectedPostfixFormExp, postfixForm);
+	}
+	
 	
 	// With Parenthesis
 	
@@ -112,7 +121,7 @@ public class PostfixConverterTestCase {
 	}
 	
 	@Test
-	public void testExpression_WithParenthesis_TwoOperators_5() {
+	public void testExpression_WithParenthesis_TwoOperators_5_OperatorPriority() {
 		String expression = "((2 + 3) / 4) + (3 + 1) * 4";
 		String expectedPostfixFormExp = "2 3 + 4 / 3 1 + 4 * +";
 		PostfixConverter converter = new PostfixConverter(expression);
@@ -121,7 +130,7 @@ public class PostfixConverterTestCase {
 	}
 	
 	@Test
-	public void testExpression_WithParenthesis_TwoOperators_6() {
+	public void testExpression_WithParenthesis_TwoOperators_6_Complex() {
 		String expression = "(((2 + 3) / 4) + (4 + 4)) * 5";
 		String expectedPostfixFormExp = "2 3 + 4 / 4 4 + + 5 *";
 		PostfixConverter converter = new PostfixConverter(expression);
