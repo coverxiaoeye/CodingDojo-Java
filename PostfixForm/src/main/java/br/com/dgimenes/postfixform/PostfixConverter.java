@@ -24,20 +24,25 @@ public class PostfixConverter {
 		} else {
 			printExpressionPostfix((Expression) firstElement, res);
 		}
-		res.append(" ");
 		Element secondElement = exp.getSecondElement();
-		if (secondElement instanceof Value) {
-			res.append(((Value) secondElement).getValue());
-		} else {
-			printExpressionPostfix((Expression) secondElement, res);
+		// we might have just a firstElement, which is a number or expression in
+		// parenthesis
+		if (secondElement != null) {
+			res.append(" ");
+			if (secondElement instanceof Value) {
+				res.append(((Value) secondElement).getValue());
+			} else {
+				printExpressionPostfix((Expression) secondElement, res);
+			}
+			res.append(" ");
+			res.append(exp.getOperator());
 		}
-		res.append(" ");
-		res.append(exp.getOperator());
 	}
 
+	// Needs refactoring...
 	private Expression extractExpression(Scanner scanner) {
+		Expression lastFoundExp = null;
 		Element firstElement = null;
-		Element secondElement = null;
 		String firstElementStr = scanner.next();
 		if (firstElementStr.startsWith("(")) {
 			String firstElementString = extractParenthesisBlock(firstElementStr, scanner);
@@ -45,43 +50,50 @@ public class PostfixConverter {
 		} else {
 			firstElement = new Value(Integer.parseInt(firstElementStr));
 		}
-		String operator = scanner.next();
-		String secondElementStr = scanner.next();
-		String nextOperator = null;
+		// we might have just a firstElement, which is a number or expression in
+		// parenthesis
 		if (scanner.hasNext()) {
-			nextOperator = scanner.next();
-		}
-		if (secondElementStr.startsWith("(")) {
-			String secondElementString = extractParenthesisBlock(secondElementStr + " " + nextOperator, scanner);
-			secondElement = extractExpression(new Scanner(secondElementString));
-		} else {
-			secondElement = new Value(Integer.parseInt(secondElementStr));
-			if (nextOperator != null && compareOperatorPriority(nextOperator, operator) > 0) {
-				String secondElementString = secondElementStr + " " + nextOperator + " " + scanner.next();
-				secondElement = extractExpression(new Scanner(secondElementString));
-			}
-		}
-		Expression lastFoundExp = new Expression(operator, firstElement, secondElement);
-		operator = nextOperator;
-		while (scanner.hasNext()) {
-			secondElementStr = scanner.next();
-			nextOperator = null;
-			if (scanner.hasNext()) {
-				nextOperator = scanner.next();
-			}
-			if (secondElementStr.startsWith("(")) {
-				String secondElementString = extractParenthesisBlock(secondElementStr + " " + nextOperator, scanner);
-				secondElement = extractExpression(new Scanner(secondElementString));
-
-			} else {
-				secondElement = new Value(Integer.parseInt(secondElementStr));
-				if (nextOperator != null && compareOperatorPriority(nextOperator, operator) > 0) {
-					String secondElementString = secondElementStr + " " + nextOperator + " " + scanner.next();
-					secondElement = extractExpression(new Scanner(secondElementString));
+			String operator = scanner.next();
+			Element secondElement = null;
+			do {
+				String secondElementStr = scanner.next();
+				String nextOperator = null;
+				if (scanner.hasNext()) {
+					nextOperator = scanner.next();
 				}
-			}
-			lastFoundExp = new Expression(operator, lastFoundExp, secondElement);
-			operator = nextOperator;
+				if (secondElementStr.startsWith("(")) {
+					String secondElementString = extractParenthesisBlock(secondElementStr + " " + nextOperator, scanner);
+					secondElement = extractExpression(new Scanner(secondElementString));
+					if (scanner.hasNext()) {
+						nextOperator = scanner.next();
+					}
+					if (nextOperator != null && compareOperatorPriority(nextOperator, operator) > 0) {
+						String nextBlock = scanner.next();
+						if (nextBlock.startsWith("(")) {
+							secondElementString = "(" + secondElementString + ") " + nextOperator + " ("
+									+ extractParenthesisBlock(nextBlock, scanner) + ")";
+						} else {
+							secondElementString = "(" + secondElementString + ") " + nextOperator + " " + nextBlock;
+						}
+						secondElement = extractExpression(new Scanner(secondElementString));
+					}
+				} else {
+					secondElement = new Value(Integer.parseInt(secondElementStr));
+					if (nextOperator != null && compareOperatorPriority(nextOperator, operator) > 0) {
+
+						String secondElementString = secondElementStr + " " + nextOperator + " " + scanner.next();
+						secondElement = extractExpression(new Scanner(secondElementString));
+						if (scanner.hasNext()) {
+							nextOperator = scanner.next();
+						}
+					}
+				}
+				lastFoundExp = new Expression(operator, lastFoundExp == null ? firstElement : lastFoundExp,
+						secondElement);
+				operator = nextOperator;
+			} while (scanner.hasNext());
+		} else {
+			lastFoundExp = new Expression(null, firstElement, null);
 		}
 		scanner.close();
 		return lastFoundExp;

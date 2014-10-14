@@ -80,6 +80,24 @@ public class PostfixConverterTestCase {
 		assertEquals(expectedPostfixFormExp, postfixForm);
 	}
 	
+	@Test
+	public void testExpression_NoParenthesis_TwoOperators_5_OperatorPriority() {
+		String expression = "1 + 2 + 3 * 4 + 2";
+		String expectedPostfixFormExp = "1 2 + 3 4 * + 2 +";
+		PostfixConverter converter = new PostfixConverter(expression);
+		String postfixForm = converter.getPostfixForm();
+		assertEquals(expectedPostfixFormExp, postfixForm);
+	}
+	
+	@Test
+	public void testExpression_NoParenthesis_TwoOperators_6_JustANumber() {
+		String expression = "1";
+		String expectedPostfixFormExp = "1";
+		PostfixConverter converter = new PostfixConverter(expression);
+		String postfixForm = converter.getPostfixForm();
+		assertEquals(expectedPostfixFormExp, postfixForm);
+	}
+	
 	
 	// With Parenthesis
 	
@@ -130,9 +148,27 @@ public class PostfixConverterTestCase {
 	}
 	
 	@Test
-	public void testExpression_WithParenthesis_TwoOperators_6_Complex() {
-		String expression = "(((2 + 3) / 4) + (4 + 4)) * 5";
-		String expectedPostfixFormExp = "2 3 + 4 / 4 4 + + 5 *";
+	public void testExpression_WithParenthesis_TwoOperators_6_OperatorPriority() {
+		String expression = "((2 + 3) / 4) + (3 + 1) * (4 + 1)";
+		String expectedPostfixFormExp = "2 3 + 4 / 3 1 + 4 1 + * +";
+		PostfixConverter converter = new PostfixConverter(expression);
+		String postfixForm = converter.getPostfixForm();
+		assertEquals(expectedPostfixFormExp, postfixForm);
+	}
+	
+	@Test
+	public void testExpression_WithParenthesis_TwoOperators_7_Complex() {
+		String expression = "(((2 + 3) / 4) + (4 + 4)) + 5 / 2";
+		String expectedPostfixFormExp = "2 3 + 4 / 4 4 + + 5 2 / +";
+		PostfixConverter converter = new PostfixConverter(expression);
+		String postfixForm = converter.getPostfixForm();
+		assertEquals(expectedPostfixFormExp, postfixForm);
+	}
+	
+	@Test
+	public void testExpression_WithParenthesis_TwoOperators_8_UselessParenthesis() {
+		String expression = "(((((2 + 3)))))";
+		String expectedPostfixFormExp = "2 3 +";
 		PostfixConverter converter = new PostfixConverter(expression);
 		String postfixForm = converter.getPostfixForm();
 		assertEquals(expectedPostfixFormExp, postfixForm);
