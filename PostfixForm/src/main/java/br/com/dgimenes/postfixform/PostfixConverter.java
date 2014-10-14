@@ -47,26 +47,61 @@ public class PostfixConverter {
 		}
 		String operator = scanner.next();
 		String secondElementStr = scanner.next();
+		String nextOperator = null;
+		if (scanner.hasNext()) {
+			nextOperator = scanner.next();
+		}
 		if (secondElementStr.startsWith("(")) {
-			String secondElementString = extractParenthesisBlock(secondElementStr, scanner);
+			String secondElementString = extractParenthesisBlock(secondElementStr + " " + nextOperator, scanner);
 			secondElement = extractExpression(new Scanner(secondElementString));
 		} else {
 			secondElement = new Value(Integer.parseInt(secondElementStr));
+			if (nextOperator != null && compareOperatorPriority(nextOperator, operator) > 0) {
+				String secondElementString = secondElementStr + " " + nextOperator + " " + scanner.next();
+				secondElement = extractExpression(new Scanner(secondElementString));
+			}
 		}
 		Expression lastFoundExp = new Expression(operator, firstElement, secondElement);
+		operator = nextOperator;
 		while (scanner.hasNext()) {
-			operator = scanner.next();
 			secondElementStr = scanner.next();
+			nextOperator = null;
+			if (scanner.hasNext()) {
+				nextOperator = scanner.next();
+			}
 			if (secondElementStr.startsWith("(")) {
-				String secondElementString = extractParenthesisBlock(secondElementStr, scanner);
+				String secondElementString = extractParenthesisBlock(secondElementStr + " " + nextOperator, scanner);
 				secondElement = extractExpression(new Scanner(secondElementString));
+
 			} else {
 				secondElement = new Value(Integer.parseInt(secondElementStr));
+				if (nextOperator != null && compareOperatorPriority(nextOperator, operator) > 0) {
+					String secondElementString = secondElementStr + " " + nextOperator + " " + scanner.next();
+					secondElement = extractExpression(new Scanner(secondElementString));
+				}
 			}
 			lastFoundExp = new Expression(operator, lastFoundExp, secondElement);
+			operator = nextOperator;
 		}
 		scanner.close();
 		return lastFoundExp;
+	}
+
+	private int compareOperatorPriority(String nextOperator, String operator) {
+		return getOperatorPriorityValue(nextOperator) - getOperatorPriorityValue(operator);
+	}
+
+	private int getOperatorPriorityValue(String operator) {
+		if (operator.equals("+")) {
+			return 1;
+		} else if (operator.equals("-")) {
+			return 1;
+		} else if (operator.equals("*")) {
+			return 2;
+		} else if (operator.equals("/")) {
+			return 2;
+		}
+		return 0;
 	}
 
 	private String extractParenthesisBlock(String startBlock, Scanner scanner) {
