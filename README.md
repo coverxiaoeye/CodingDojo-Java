@@ -125,6 +125,8 @@ Postfix: 3 2 5 + *
 Infix: ((2 + 3) / 4) + (3 + 1) * 4
 Postfix: 2 3 + 4 / 3 1 + 4 * +
 
+Solution: https://github.com/danielgimenes/CodingDojo/tree/master/PostfixForm
+
 #License
 
 The MIT License (MIT)
