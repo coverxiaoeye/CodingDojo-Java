@@ -119,4 +119,13 @@ public class PostfixConverterTestCase {
 		String postfixForm = converter.getPostfixForm();
 		assertEquals(expectedPostfixFormExp, postfixForm);
 	}
+	
+	@Test
+	public void testExpression_WithParenthesis_TwoOperators_6() {
+		String expression = "(((2 + 3) / 4) + (4 + 4)) * 5";
+		String expectedPostfixFormExp = "2 3 + 4 / 4 4 + + 5 *";
+		PostfixConverter converter = new PostfixConverter(expression);
+		String postfixForm = converter.getPostfixForm();
+		assertEquals(expectedPostfixFormExp, postfixForm);
+	}
 }

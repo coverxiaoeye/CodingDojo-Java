@@ -35,4 +35,9 @@ public class Value implements Element {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Value [value=" + value + "]";
+	}
 }
