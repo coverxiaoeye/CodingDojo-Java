@@ -107,6 +107,16 @@ Do this for the usual SQL queries: SELECT, INSERT, UPDATE, DELETE. Remember to o
 
 Solution: https://github.com/danielgimenes/CodingDojo/tree/master/SQLStringGenerator
 
+##Postfix Form
+
+Given an expression in infix form (operators appear inline in the expression) like:
+
+3 * (2 + 5)
+
+Transform it to its postfix equivalent:
+
+3 2 5 + *
+
 #License
 
 The MIT License (MIT)
